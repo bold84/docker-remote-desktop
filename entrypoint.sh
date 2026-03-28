@@ -25,6 +25,20 @@ else
     echo "$USER_NAME:$USER_PASSWORD" | chpasswd
 fi
 
+# Adjust docker group GID to match the mounted socket
+if [ -S /var/run/docker.sock ]; then
+    DOCKER_SOCKET_GID=$(stat -c '%g' /var/run/docker.sock)
+    if [ -n "$DOCKER_SOCKET_GID" ] && [ "$DOCKER_SOCKET_GID" != "0" ]; then
+        if getent group docker >/dev/null 2>&1; then
+            groupmod -g "$DOCKER_SOCKET_GID" docker 2>/dev/null || true
+        else
+            groupadd -g "$DOCKER_SOCKET_GID" docker
+        fi
+        usermod -aG docker "$USER_NAME"
+        echo "Adjusted docker group GID to $DOCKER_SOCKET_GID"
+    fi
+fi
+
 # Start Docker daemon if docker command is available
 if command -v dockerd >/dev/null 2>&1; then
     echo "Starting Docker daemon..."
