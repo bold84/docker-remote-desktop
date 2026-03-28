@@ -8,7 +8,7 @@ services:
       args:
         TAG: noble
     image: docker-remote-desktop-ben:latest
-    container_name: remote-desktop
+    container_name: remote-desktop-ben
     hostname: remote-desktop
     restart: unless-stopped
     
@@ -32,7 +32,11 @@ services:
     #   - ./certs:/etc/xrdp:ro
     
     # Shared memory size for browser support
-    shm_size: 1gb
+    shm_size: 2gb
+    
+    # Capabilities needed for Chromium-based browsers
+    cap_add:
+      - SYS_ADMIN
     
     # Resource limits (optional)
     # deploy:
