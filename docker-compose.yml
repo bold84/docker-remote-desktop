@@ -25,7 +25,7 @@ services:
     
     # Persist user home directory
     volumes:
-      - ./home/${USER_NAME:-ubuntu}:/home/${USER_NAME:-ubuntu}
+      - ./home:/home
     
     # Optional: Mount custom SSL certificates for TLS encryption
     # volumes:
