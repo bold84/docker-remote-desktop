@@ -75,6 +75,11 @@ RUN apt-get update && \
     apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends firefox && \
     apt-get install -y fonts-noto-core ttf-mscorefonts-installer fonts-roboto fonts-open-sans fonts-font-awesome ttf-ancient-fonts fonts-noto-color-emoji && \
+    curl -fsSL https://apt.fury.io/wez/gpg.key | gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg && \
+    echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' > /etc/apt/sources.list.d/wezterm.list && \
+    chmod 644 /usr/share/keyrings/wezterm-fury.gpg && \
+    apt-get update && \
+    apt-get install -y wezterm && \
     wget -q https://downloads.vivaldi.com/stable/vivaldi-stable_7.9.3970.45-1_amd64.deb -O /tmp/vivaldi.deb && \
     dpkg -i /tmp/vivaldi.deb || apt-get install -f -y && \
     rm /tmp/vivaldi.deb && \
