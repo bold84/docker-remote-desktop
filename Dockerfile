@@ -31,13 +31,19 @@ FROM ubuntu:$TAG
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
+        build-essential \
+        cmake \
         curl \
         dbus-x11 \
         git \
+        nano \
         locales \
         pavucontrol \
         pulseaudio \
         pulseaudio-utils \
+        python3 \
+        python3-is-python \
+        python3-venv \
         software-properties-common \
         sudo \
         vim \
@@ -50,6 +56,7 @@ RUN apt-get update && \
         xubuntu-icon-theme && \
     curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
+    npm install -g opencode-ai && \
     add-apt-repository -y ppa:mozillateam/ppa && \
     echo "Package: *"  > /etc/apt/preferences.d/mozilla-firefox && \
     echo "Pin: release o=LP-PPA-mozillateam" >> /etc/apt/preferences.d/mozilla-firefox && \
