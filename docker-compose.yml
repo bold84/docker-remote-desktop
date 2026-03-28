@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
       args:
         TAG: noble
-    image: docker-remote-desktop:latest
+    image: docker-remote-desktop-ben:latest
     container_name: remote-desktop
     hostname: remote-desktop
     restart: unless-stopped
@@ -30,6 +30,9 @@ services:
     # Optional: Mount custom SSL certificates for TLS encryption
     # volumes:
     #   - ./certs:/etc/xrdp:ro
+    
+    # Shared memory size for browser support
+    shm_size: 1gb
     
     # Resource limits (optional)
     # deploy:
