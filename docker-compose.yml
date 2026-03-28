@@ -14,7 +14,7 @@ services:
     
     # Port mapping for RDP
     ports:
-      - "3389:3389/tcp"
+      - "${RDP_PORT:-3389}:3389/tcp"
     
     # Environment variables for configuration
     environment:
@@ -36,31 +36,3 @@ services:
     #     reservations:
     #       cpus: '1'
     #       memory: 512M
-
-  # Alternative: Production-ready configuration with SSL
-  remote-desktop-secure:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        TAG: noble
-    image: docker-remote-desktop:latest
-    container_name: remote-desktop-secure
-    hostname: remote-desktop-secure
-    restart: unless-stopped
-    ports:
-      - "3389:3389/tcp"
-    environment:
-      - USER_NAME=ubuntu
-      # Set your password via .env file or environment
-      - USER_PASSWORD=${USER_PASSWORD:-ubuntu}
-    # Uncomment to persist SSL certificates
-    # volumes:
-    #   - xrdp-certs:/etc/xrdp
-    # Uncomment for persistent home directory
-    #   - user-home:/home/ubuntu
-
-# Uncomment for named volumes
-# volumes:
-#   xrdp-certs:
-#   user-home:
