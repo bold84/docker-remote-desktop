@@ -25,6 +25,13 @@ else
     echo "$USER_NAME:$USER_PASSWORD" | chpasswd
 fi
 
+# Start Docker daemon if docker command is available
+if command -v dockerd >/dev/null 2>&1; then
+    echo "Starting Docker daemon..."
+    dockerd &
+    sleep 5
+fi
+
 # Remove existing sesman/xrdp PID files to prevent rdp sessions hanging on container restart
 [ ! -f /var/run/xrdp/xrdp-sesman.pid ] || rm -f /var/run/xrdp/xrdp-sesman.pid
 [ ! -f /var/run/xrdp/xrdp.pid ] || rm -f /var/run/xrdp/xrdp.pid

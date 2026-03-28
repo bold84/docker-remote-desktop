@@ -34,9 +34,15 @@ services:
     # Shared memory size for browser support
     shm_size: 2gb
     
-    # Capabilities needed for Chromium-based browsers
+    # Capabilities needed for Chromium-based browsers and Docker-in-Docker
     cap_add:
       - SYS_ADMIN
+      - NET_ADMIN
+    
+    # Mount Docker socket for Docker-in-Docker (alternative to running dockerd)
+    # Uncomment to use host Docker instead of running dockerd inside container
+    # volumes:
+    #   - /var/run/docker.sock:/var/run/docker.sock
     
     # Resource limits
     deploy:
