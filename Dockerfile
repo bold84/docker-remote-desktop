@@ -74,6 +74,12 @@ RUN apt-get update && \
     echo "Pin-Priority: 1001" >> /etc/apt/preferences.d/mozilla-firefox && \
     apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends firefox && \
+    wget -q https://downloads.vivaldi.com/stable/vivaldi-stable_7.9.3970.45-1_amd64.deb -O /tmp/vivaldi.deb && \
+    dpkg -i /tmp/vivaldi.deb || apt-get install -f -y && \
+    rm /tmp/vivaldi.deb && \
+    wget -q 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/code.deb && \
+    dpkg -i /tmp/code.deb || apt-get install -f -y && \
+    rm /tmp/code.deb && \
     rm -rf /var/lib/apt/lists/* && \
     deluser --remove-home ubuntu && \
     locale-gen en_US.UTF-8
