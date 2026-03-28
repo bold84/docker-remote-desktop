@@ -108,6 +108,10 @@ RUN apt-get update && \
     deluser --remove-home ubuntu && \
     locale-gen en_US.UTF-8
 
+RUN apt-get update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends tmux && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY --from=builder /tmp/install /
 RUN sed -i 's|^Exec=.*|Exec=/usr/bin/pulseaudio|' /etc/xdg/autostart/pulseaudio-xrdp.desktop
 
