@@ -26,10 +26,10 @@ services:
     # Persist user home directory
     volumes:
       - ./home:/home
-    
-    # Optional: Mount custom SSL certificates for TLS encryption
-    # volumes:
-    #   - ./certs:/etc/xrdp:ro
+      # Optional: Mount custom SSL certificates for TLS encryption
+      # - ./certs:/etc/xrdp:ro
+      # Optional: Mount Docker socket for Docker-in-Docker (alternative to running dockerd inside container)
+      # - /var/run/docker.sock:/var/run/docker.sock
     
     # Shared memory size for browser support
     shm_size: 2gb
@@ -38,11 +38,6 @@ services:
     cap_add:
       - SYS_ADMIN
       - NET_ADMIN
-    
-    # Mount Docker socket for Docker-in-Docker (alternative to running dockerd)
-    # Uncomment to use host Docker instead of running dockerd inside container
-    # volumes:
-    #   - /var/run/docker.sock:/var/run/docker.sock
     
     # Resource limits
     deploy:
