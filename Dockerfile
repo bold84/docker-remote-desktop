@@ -74,6 +74,7 @@ RUN apt-get update && \
     echo "Pin-Priority: 1001" >> /etc/apt/preferences.d/mozilla-firefox && \
     apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends firefox && \
+    apt-get install -y fonts-noto-core ttf-mscorefonts-installer fonts-roboto fonts-open-sans fonts-font-awesome ttf-ancient-fonts fonts-noto-color-emoji && \
     wget -q https://downloads.vivaldi.com/stable/vivaldi-stable_7.9.3970.45-1_amd64.deb -O /tmp/vivaldi.deb && \
     dpkg -i /tmp/vivaldi.deb || apt-get install -f -y && \
     rm /tmp/vivaldi.deb && \
