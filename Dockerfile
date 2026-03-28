@@ -42,6 +42,7 @@ RUN apt-get update && \
         pulseaudio \
         pulseaudio-utils \
         python3 \
+        python-is-python3 \
         python3-venv \
         software-properties-common \
         sudo \
