@@ -31,6 +31,7 @@ FROM ubuntu:$TAG
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
+        curl \
         dbus-x11 \
         git \
         locales \
@@ -47,6 +48,8 @@ RUN apt-get update && \
         xorgxrdp \
         xrdp \
         xubuntu-icon-theme && \
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt-get install -y --no-install-recommends nodejs && \
     add-apt-repository -y ppa:mozillateam/ppa && \
     echo "Package: *"  > /etc/apt/preferences.d/mozilla-firefox && \
     echo "Pin: release o=LP-PPA-mozillateam" >> /etc/apt/preferences.d/mozilla-firefox && \
