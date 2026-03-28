@@ -23,6 +23,10 @@ services:
       - USER_UID=${USER_UID:-1020}
       - USER_GID=${USER_GID:-1020}
     
+    # Persist user home directory
+    volumes:
+      - ./home/${USER_NAME:-ubuntu}:/home/${USER_NAME:-ubuntu}
+    
     # Optional: Mount custom SSL certificates for TLS encryption
     # volumes:
     #   - ./certs:/etc/xrdp:ro
