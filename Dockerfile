@@ -80,6 +80,8 @@ RUN apt-get update && \
     rm packages-microsoft-prod.deb && \
     apt-get update && \
     apt-get install -y dotnet-sdk-10.0 && \
+    apt-get install -y snapd && \
+    snap install flutter --classic && \
     add-apt-repository -y ppa:mozillateam/ppa && \
     echo "Package: *"  > /etc/apt/preferences.d/mozilla-firefox && \
     echo "Pin: release o=LP-PPA-mozillateam" >> /etc/apt/preferences.d/mozilla-firefox && \
