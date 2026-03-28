@@ -1,9 +1,28 @@
 #!/usr/bin/env bash
 
-# Create the user account
-if ! id ubuntu >/dev/null 2>&1; then
-    groupadd --gid 1020 ubuntu
-    useradd --shell /bin/bash --uid 1020 --gid 1020 --groups sudo --password "$(openssl passwd ubuntu)" --create-home --home-dir /home/ubuntu ubuntu
+# Configuration via environment variables
+USER_NAME="${USER_NAME:-ubuntu}"
+USER_PASSWORD="${USER_PASSWORD:-ubuntu}"
+USER_UID="${USER_UID:-1020}"
+USER_GID="${USER_GID:-1020}"
+
+# Create the user account if it doesn't exist
+if ! id "$USER_NAME" >/dev/null 2>&1; then
+    # Create group
+    groupadd --gid "$USER_GID" "$USER_NAME"
+    # Create user with encrypted password
+    useradd --shell /bin/bash \
+            --uid "$USER_UID" \
+            --gid "$USER_GID" \
+            --groups sudo \
+            --password "$(openssl passwd -1 "$USER_PASSWORD")" \
+            --create-home \
+            --home-dir "/home/$USER_NAME" \
+            "$USER_NAME"
+    echo "Created user: $USER_NAME with UID/GID: $USER_UID/$USER_GID"
+else
+    # Update password if user exists (in case password changed)
+    echo "$USER_NAME:$USER_PASSWORD" | chpasswd
 fi
 
 # Remove existing sesman/xrdp PID files to prevent rdp sessions hanging on container restart
