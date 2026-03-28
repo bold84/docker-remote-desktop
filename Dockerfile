@@ -80,8 +80,12 @@ RUN apt-get update && \
     rm packages-microsoft-prod.deb && \
     apt-get update && \
     apt-get install -y dotnet-sdk-10.0 && \
-    apt-get install -y snapd && \
-    snap install flutter --classic && \
+    apt-get install -y -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev && \
+    wget -q https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.29.0-stable.tar.xz -O /tmp/flutter.tar.xz && \
+    tar xf /tmp/flutter.tar.xz -C /opt && \
+    rm /tmp/flutter.tar.xz && \
+    ln -s /opt/flutter/bin/flutter /usr/local/bin/flutter && \
+    ln -s /opt/flutter/bin/dart /usr/local/bin/dart && \
     add-apt-repository -y ppa:mozillateam/ppa && \
     echo "Package: *"  > /etc/apt/preferences.d/mozilla-firefox && \
     echo "Pin: release o=LP-PPA-mozillateam" >> /etc/apt/preferences.d/mozilla-firefox && \
