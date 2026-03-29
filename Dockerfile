@@ -36,6 +36,8 @@ RUN apt-get update && \
         automake \
         build-essential \
         clang \
+        clang-tidy \
+        clang-format \
         cmake \
         curl \
         dbus-x11 \
