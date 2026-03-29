@@ -6,6 +6,7 @@ FROM ubuntu:$TAG AS builder
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
         autoconf \
+        automake \
         build-essential \
         ca-certificates \
         dpkg-dev \
@@ -31,6 +32,8 @@ FROM ubuntu:$TAG
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
+        autoconf \
+        automake \
         build-essential \
         clang \
         cmake \
@@ -109,7 +112,7 @@ RUN apt-get update && \
     locale-gen en_US.UTF-8
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends tmux && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends tmux curl zip unzip tar && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /tmp/install /
