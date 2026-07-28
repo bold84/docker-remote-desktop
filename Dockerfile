@@ -62,7 +62,6 @@ RUN apt-get update && \
         xubuntu-icon-theme && \
     curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
-    npm install -g opencode-ai && \
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
     (type -p wget >/dev/null || (apt update && apt install wget -y)) && \
     mkdir -p -m 755 /etc/apt/keyrings && \
@@ -117,7 +116,9 @@ RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends tmux curl zip unzip tar && \
     rm -rf /var/lib/apt/lists/*
 
-RUN curl -sSL "https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository" | sudo bash && sudo apt install glab
+#     npm install -g opencode-ai && \
+
+RUN curl -sSL "https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository" | sudo bash && DEBIAN_FRONTEND="noninteractive" sudo apt install glab
 
 COPY --from=builder /tmp/install /
 RUN sed -i 's|^Exec=.*|Exec=/usr/bin/pulseaudio|' /etc/xdg/autostart/pulseaudio-xrdp.desktop
